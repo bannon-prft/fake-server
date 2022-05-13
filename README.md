@@ -4,6 +4,8 @@ It was set up to demonstrate some skills in node.js
 
 To use and expose to the public, configure your router to allow port-forwarding and a static ip address for the computer to be used as a server.
 
+Change the `HOSTNAME` and `PORT` to that supplied from the router config 
+
 Then use
 ```bash
 npm install -g localtunnel
