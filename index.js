@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const helmet = require('helmet')
+const { query, validationResult } = require('express-validator')
 
 const HOSTNAME = 'localhost'
 const PORT = 3000
@@ -25,16 +26,35 @@ app.get('/help', (req, res) => {
   res.writeHead(200)
   res.json({
     name: 'Help menu',
-    data: help
+    data: help,
   })
 })
 
-app.post('/new', (req, res) => {
-  console.log('POST /new')
-  const entry = req.query
-  postData.postNewEntry(entry)
-  res.send('New Entry successfully posted to mock-data.json')
-})
+app.post(
+  '/new',
+  [
+    query(['first_name', 'last_name'])
+      .not()
+      .isEmpty()
+      .isAlpha()
+      .withMessage(
+        'Names must not be empty and must contain only Alpha characters'
+      ),
+    query('email').isEmail().withMessage('Email must be valid email address'),
+    query('avatar').if(query('avatar').exists()).isURL(),
+  ],
+  (req, res) => {
+    console.log('POST /new')
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).jsonp(errors.array())
+    } else {
+      const entry = req.query
+      postData.postNewEntry(entry)
+      res.send('New Entry successfully posted to mock-data.json')
+    }
+  }
+)
 
 app.get('/count', (req, res) => {
   console.log('GET /count')
