@@ -1,4 +1,4 @@
-const data = require('../mock-data.json')
+const data = require('../data/mock-data.json')
 
 const getHelp = () => {
   return {
