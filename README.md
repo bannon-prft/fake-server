@@ -19,6 +19,6 @@ lt --port <specified_port_in_router_config>
 This will give you a publicly accessible URL
 
 ```bash
-curl https://your-endpoint-or-ip/help
+curl https://<your-endpoint-or-ip>/help
 ```
 The above will give a list of the current endpoints and the allowed methods on each

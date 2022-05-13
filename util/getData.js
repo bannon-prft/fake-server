@@ -7,6 +7,11 @@ const getHelp = () => {
       availableMethods: ['GET'],
       description: 'All data',
     },
+    postNew: {
+      endpoint: '/new',
+      availableMethods: ['POST'],
+      description: 'Post a new entry to mock data',
+    },
     count: {
       endpoint: '/count',
       availableMethods: ['GET'],
