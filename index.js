@@ -1,8 +1,13 @@
 const express = require('express')
 const app = express()
+const helmet = require('helmet')
+
+const HOSTNAME = 'localhost'
 const PORT = 3000
 
 const getData = require('./util/getData')
+
+app.use(helmet())
 
 app.get('/', (req, res) => {
   console.log('GET /')
@@ -16,6 +21,7 @@ app.get('/', (req, res) => {
 app.get('/help', (req, res) => {
   console.log('GET /help')
   const help = getData.getHelp()
+  res.writeHead(200)
   res.json(help)
 })
 
@@ -37,6 +43,6 @@ app.get('/names', (req, res) => {
   })
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, HOSTNAME, () => {
   console.log(`Example app listening on port ${PORT}`)
 })
