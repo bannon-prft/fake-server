@@ -30,7 +30,7 @@ app.get('/count', (req, res) => {
   const count = getData.countAll()
   res.json({
     name: 'Data Count for all data in mock-data.json',
-    count,
+    data: count,
   })
 })
 
@@ -39,7 +39,17 @@ app.get('/names', (req, res) => {
   const names = getData.getNames()
   res.json({
     name: 'All full names in mock-data.json',
-    names,
+    data: names,
+  })
+})
+
+app.get('/names/:id', (req, res) => {
+  const id = req.params.id
+  console.log(`GET /names/${id}`)
+  const name = getData.getNameById(id)
+  res.json({
+    name: `Name for ID: ${id}`,
+    data: name,
   })
 })
 
